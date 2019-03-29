@@ -94,7 +94,10 @@
         canvas.height = 0.8 * windowHeight;
 
         canvas.addEventListener("mousedown", mouseDown);
-        canvas.addEventListener("touchstart", mouseDown);
+        canvas.addEventListener("touchstart", function(e) {
+          e.preventDefault();
+          mouseDown();
+        });
         canvas.addEventListener("mouseup", mouseUp);
         canvas.addEventListener("touchend", mouseDown);
         canvas.addEventListener("mousemove", mouseMove);
