@@ -85,7 +85,7 @@
           }
           var rect = canvas.getBoundingClientRect();
           pen(e.clientX - rect.left, e.clientY - rect.top, userRadius, userColor);
-
+          e.preventDefault();
         }
 
         var windowWidth = window.innerWidth;
@@ -106,7 +106,6 @@
         canvas.addEventListener("mousemove", mouseMove);
         canvas.addEventListener("touchmove", function(e) {
           mouseMove();
-          e.preventDefault();
         });
 
       </script>
