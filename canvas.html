@@ -95,13 +95,19 @@
 
         canvas.addEventListener("mousedown", mouseDown);
         canvas.addEventListener("touchstart", function(e) {
-          e.preventDefault();
           mouseDown();
+          e.preventDefault();
         });
         canvas.addEventListener("mouseup", mouseUp);
-        canvas.addEventListener("touchend", mouseDown);
+        canvas.addEventListener("touchend", function(e) {
+          mouseUp();
+          e.preventDefault();
+        });
         canvas.addEventListener("mousemove", mouseMove);
-        canvas.addEventListener("touchmove", mouseMove);
+        canvas.addEventListener("touchmove", function(e) {
+          mouseMove();
+          e.preventDefault();
+        });
 
       </script>
 
