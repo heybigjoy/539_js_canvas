@@ -37,6 +37,7 @@
         Up/Down Arrow: Change Pen Size<br>
         "Y" for Yellow, "B" for Blue, "G" for Green, and "R" for Red<br>
         or Pick color by the color picker below the canvas</p>
+
       <canvas id="canvas">
       Your browser does not support this canvas.
       </canvas>
@@ -51,9 +52,9 @@
         var isMouseDown = false;
         var userRadius = 1;
         var userColor = "red";
-
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
+
         canvas.width = 0.8 * windowWidth;
         canvas.height = 0.8 * windowHeight;
 
@@ -74,7 +75,7 @@
             userColor = "red";
           }
           e.preventDefault();
-          console.log(userRadius);
+          //console.log(userRadius);
         })
 
         function pen(x, y, radius, color){
@@ -85,12 +86,14 @@
         }
 
         function clearCanvas() {
-          windowWidth = window.innerWidth;
-          windowHeight = window.innerHeight;
-          console.log(windowWidth);
-          console.log(windowHeight);
+          windowWidth = window.outerWidth;
+          windowHeight = window.outerHeight;
+          //console.log(windowWidth);
+          //console.log(windowHeight);
           canvas.width = 0.8 * windowWidth;
           canvas.height = 0.8 * windowHeight;
+          //console.log(canvas.width);
+          //console.log(canvas.height);
           ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         }
         function mouseDown(e){
