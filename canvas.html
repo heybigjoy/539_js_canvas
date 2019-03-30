@@ -78,6 +78,10 @@
         }
 
         function clearCanvas() {
+          windowWidth = window.innerWidth;
+          windowHeight = window.innerHeight;
+          canvas.width = 0.8 * windowWidth;
+          canvas.height = 0.8 * windowHeight;
           ctx.setTransform(1, 0, 0, 1, 0, 0);
           ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         }
