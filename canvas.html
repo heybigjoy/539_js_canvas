@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Joy Huang | Canvas</title>
-    <link rel="stylesheet" href="css/html5reset.css">
+    <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,900" >
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -31,10 +31,18 @@
 
     <!-- Page Content -->
     <main>
-
+      <h2> Welcome to my Canvas</h2>
+      <p>Controls:<br>
+        Space: Clear Canvas<br>
+        Up/Down Arrow: Change Pen Size<br>
+        "Y" for Yellow, "B" for Blue, "G" for Green, and "R" for Red<br>
+        or Pick color by the color picker below the canvas</p>
       <canvas id="canvas">
       Your browser does not support this canvas.
       </canvas>
+
+      <h3>Color Picker</h3>
+      <input type="color" id="colorPicker" onchange="selectColor()" value="#FF0000">
 
       <script>
 
@@ -44,7 +52,6 @@
         var userRadius = 1;
         var userColor = "red";
         document.addEventListener("keydown", function(e) {
-          console.log(e);
           if (e.code === "Space") {
             clearCanvas();
           } else if (e.code === "ArrowUp"){
@@ -71,13 +78,17 @@
         }
 
         function clearCanvas() {
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
           ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         }
-        function mouseDown(){
+        function mouseDown(e){
           isMouseDown = true;
+          e.preventDefault();
         }
-        function mouseUp(){
+        function mouseUp(e){
           isMouseDown = false;
+          e.preventDefault();
+
         }
         function mouseMove(e){
           if (!isMouseDown) {
@@ -85,7 +96,20 @@
           }
           var rect = canvas.getBoundingClientRect();
           pen(e.clientX - rect.left, e.clientY - rect.top, userRadius, userColor);
+        }
+
+        function touchMove(e){
+          if (!isMouseDown) {
+            return;
+          }
+          var rect = canvas.getBoundingClientRect();
+          pen(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top, userRadius, userColor);
           e.preventDefault();
+        }
+
+        function selectColor(){
+          userColor = document.getElementById("colorPicker").value
+          //console.log(userColor)
         }
 
         var windowWidth = window.innerWidth;
@@ -94,19 +118,12 @@
         canvas.height = 0.8 * windowHeight;
 
         canvas.addEventListener("mousedown", mouseDown);
-        canvas.addEventListener("touchstart", function(e) {
-          mouseDown();
-          e.preventDefault();
-        });
+        canvas.addEventListener("touchstart", mouseDown);
         canvas.addEventListener("mouseup", mouseUp);
-        canvas.addEventListener("touchend", function(e) {
-          mouseUp();
-          e.preventDefault();
-        });
+        canvas.addEventListener("touchend", mouseUp);
         canvas.addEventListener("mousemove", mouseMove);
-        canvas.addEventListener("touchmove", function(e) {
-          mouseMove();
-        });
+        canvas.addEventListener("touchmove", touchMove);
+        canvas.addEventListener("orientationchange",clearCanvas);
 
       </script>
 
