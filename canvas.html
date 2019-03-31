@@ -47,6 +47,7 @@
 
       <script>
 
+        //set up the variables
       	var canvas = document.querySelector('canvas');
       	var ctx = canvas.getContext('2d');
         var isMouseDown = false;
@@ -55,9 +56,11 @@
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
 
+        //set up the canvas size 80% of the window
         canvas.width = 0.8 * windowWidth;
         canvas.height = 0.8 * windowHeight;
 
+        //set event listeners for keyboard events
         document.addEventListener("keydown", function(e) {
           if (e.code === "Space") {
             clearCanvas();
@@ -78,6 +81,7 @@
           //console.log(userRadius);
         })
 
+        //function of the drawing pen
         function pen(x, y, radius, color){
           ctx.beginPath();
           ctx.arc(x, y, radius, 0, 2 * Math.PI);
@@ -85,6 +89,7 @@
           ctx.fill();
         }
 
+        //function of the resizing the canvas on mobile
         function resizeCanvas() {
           windowWidth = window.outerWidth;
           windowHeight = window.outerHeight;
@@ -97,9 +102,12 @@
           //ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         }
 
+        //function of the clearing the canvas
         function clearCanvas() {
           ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         }
+
+        //function of identifying mouse status
         function mouseDown(e){
           isMouseDown = true;
           e.preventDefault();
@@ -109,14 +117,17 @@
           e.preventDefault();
 
         }
+
+        //function of drawing when mouse moves
         function mouseMove(e){
-          if (!isMouseDown) {
+          /*if (!isMouseDown) {
             return;
-          }
+          } */
           var rect = canvas.getBoundingClientRect();
           pen(e.clientX - rect.left, e.clientY - rect.top, userRadius, userColor);
         }
 
+        //function of drawing when touch moves
         function touchMove(e){
           if (!isMouseDown) {
             return;
@@ -126,11 +137,13 @@
           e.preventDefault();
         }
 
+        //function of selecting colors for pen from color picker
         function selectColor(){
           userColor = document.getElementById("colorPicker").value
           //console.log(userColor)
         }
 
+        //event listener to call the functions
         canvas.addEventListener("mousedown", mouseDown);
         canvas.addEventListener("touchstart", mouseDown);
         canvas.addEventListener("mouseup", mouseUp);
