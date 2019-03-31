@@ -85,7 +85,7 @@
           ctx.fill();
         }
 
-        function clearCanvas() {
+        function resizeCanvas() {
           windowWidth = window.outerWidth;
           windowHeight = window.outerHeight;
           //console.log(windowWidth);
@@ -95,6 +95,10 @@
           //console.log(canvas.width);
           //console.log(canvas.height);
           //ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        }
+
+        function clearCanvas() {
+          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         }
         function mouseDown(e){
           isMouseDown = true;
@@ -133,7 +137,7 @@
         canvas.addEventListener("touchend", mouseUp);
         canvas.addEventListener("mousemove", mouseMove);
         canvas.addEventListener("touchmove", touchMove);
-        window.addEventListener("orientationchange",clearCanvas);
+        window.addEventListener("orientationchange",resizeCanvas);
 
       </script>
 
